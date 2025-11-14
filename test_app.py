@@ -8,12 +8,14 @@ def test_hello():
     assert response.status_code == 200
     assert response.get_json() == {"message": "Hello, World!"}
 
+
 def test_echo():
     client = app.test_client()
     payload = {"msg": "ping"}
     response = client.post('/echo', json=payload)
     assert response.status_code == 201
     assert json.loads(response.data) == payload
+
 
 def test_echo_put():
     client = app.test_client()
@@ -24,6 +26,7 @@ def test_echo_put():
     response = client.put(f"/echo/{echo_id}", json=payload)
     assert response.status_code == 201
     assert json.loads(response.data) == payload
+
 
 def test_echo_delete():
     client = app.test_client()
