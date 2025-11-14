@@ -13,7 +13,7 @@ def test_echo():
     payload = {"msg": "ping"}
     response = client.post('/echo', json=payload)
     assert response.status_code == 201
-    assert response.get_json() == payload
+    assert json.loads(response.data) == payload
 
 def test_echo_put():
     client = app.test_client()
@@ -23,7 +23,7 @@ def test_echo_put():
         "msg": "hello, this is a message I want to test"}
     response = client.put(f"/echo/{echo_id}", json=payload)
     assert response.status_code == 201
-    assert response.get_json() == payload
+    assert json.loads(response.data) == payload
 
 def test_echo_delete():
     client = app.test_client()
@@ -34,4 +34,4 @@ def test_echo_delete():
 
     response = client.delete(f"/echo/{echo_id}")
     assert response.status_code == 200
-    assert response.get_json() == {"message": "Echo has been deleted!"}
+    assert json.loads(response.data) == {"message": "Echo has been deleted!"}
